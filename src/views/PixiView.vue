@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import * as PIXI from 'pixi.js';
+import { attachCamera } from '@/pixi/camera';
+import { bunBunCircle } from '@/pixi/hello-bunny';
+import { initPixi } from '@/pixi/pixi-basics';
 import { onMounted, ref } from 'vue';
 
 const renderTarget = ref<HTMLElement>(null as unknown as HTMLElement);
 
 onMounted(() => {
-  const app = new PIXI.Application<HTMLCanvasElement>({
-    antialias: true,
-    background: '#1099bb',
-    resizeTo: renderTarget.value
-  })
-  
-  renderTarget.value.appendChild(app.view);
-})
+  initPixi(renderTarget.value, [attachCamera, bunBunCircle]);
+});
 </script>
 
 <template>
@@ -24,4 +20,11 @@ onMounted(() => {
   width: 100%;
   height: 100%;
 }
+
+@media (min-width: 1024px) {
+  .render-target {
+    min-height: 98vh;
+  }
+}
+
 </style>
