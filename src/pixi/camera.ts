@@ -9,7 +9,8 @@ export function attachCamera(app: Application) {
     worldWidth: app.stage.width,
     events: app.renderer.events,
     // passiveWheel: false,
-    ticker: app.ticker
+    ticker: app.ticker,
+    disableOnContextMenu: true
   });
 
   // app.stage.addChild(viewport);
@@ -31,12 +32,12 @@ export function attachCamera(app: Application) {
       lineHeight: 20 // scaling factor for non-DOM_DELTA_PIXEL scrolling events (used for firefox mouse scrolling)
     })
     .decelerate({
-      friction: 0.95, // percent to decelerate after movement
+      friction: 0.92, // percent to decelerate after movement
       bounce: 0.8, // percent to decelerate when past boundaries (only applicable when viewport.bounce() is active)
       minSpeed: 0.01 // minimum velocity before stopping/reversing acceleration
     })
     .wheel({
-      smooth: 10,
+      smooth: 30,
       percent: 0.2, // smooth the zooming by providing the number of frames to zoom between wheel spins
       interrupt: true, // stop smoothing with any user input on the viewport
       reverse: false, // reverse the direction of the scroll
@@ -44,4 +45,8 @@ export function attachCamera(app: Application) {
       lineHeight: 20, // scaling factor for non-DOM_DELTA_PIXEL scrolling events
       axis: 'all' // axis to zoom
     });
+
+  // viewport.mouseEdges({
+  //   distance: 50
+  // });
 }

@@ -1,5 +1,6 @@
+import { DropShadowFilter } from '@pixi/filter-drop-shadow';
 import type { Viewport } from 'pixi-viewport';
-import { Container, FederatedPointerEvent, Sprite, type Application, Texture, SCALE_MODES } from 'pixi.js';
+import { Container, FederatedPointerEvent, Sprite, type Application, Texture, SCALE_MODES, Filter } from 'pixi.js';
 
 /**
  * Create a rotating bunny moving in a circle.
@@ -65,6 +66,7 @@ function createBunny(x: number, y: number, stage: Container, texture: Texture) {
 }
 
 let dragTarget: Sprite | undefined;
+const dragFilters: Filter[] = [new DropShadowFilter()];
 
 function onDragMove(event: FederatedPointerEvent) {
   if (dragTarget) {
@@ -75,10 +77,20 @@ function onDragMove(event: FederatedPointerEvent) {
 function createOnDragStart(obj: Sprite, stage: Container) {
   return () => {
     obj.alpha = 0.5;
+    obj.filters = (obj.filters || []).concat(dragFilters);
+    obj.cursor = 'grabbing';
     dragTarget = obj;
     stage.on('pointermove', onDragMove);
     const viewport = stage as Viewport; // weird but this is how it's set up in camera.ts. Probably kinda bad long term...
     viewport.plugins.pause('drag');
+    const pan = 0.12;
+    viewport.mouseEdges({
+      top: stage.height * pan,
+      bottom: stage.height * pan,
+      left: stage.width * pan,
+      right: stage.width * pan,
+      allowButtons: true
+    });
   };
 }
 
@@ -87,9 +99,19 @@ function createOnDragEnd(stage: Container) {
     if (dragTarget) {
       stage.off('pointermove', onDragMove);
       dragTarget.alpha = 1;
+      if (dragTarget.filters) {
+        for (const filter of dragFilters) {
+          dragTarget.filters.splice(dragTarget.filters.indexOf(filter), 1);
+        }
+        dragTarget.filters.length = 0;
+      }
       dragTarget = undefined;
       const viewport = stage as Viewport;
       viewport.plugins.resume('drag');
+      // viewport.plugins.remove('mouseEdges'); // this doesn't do what I think it does
+      viewport.mouseEdges({
+        distance: 0
+      });
     }
   };
 }
