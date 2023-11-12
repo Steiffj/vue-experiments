@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { attachCamera } from '@/pixi/camera';
-import { bunBunCircle } from '@/pixi/hello-bunny';
+import { bunBunCircle, bunBunRandoDrag } from '@/pixi/hello-bunny';
 import { initPixi } from '@/pixi/pixi-basics';
 import { onMounted, ref } from 'vue';
 
 const renderTarget = ref<HTMLElement>(null as unknown as HTMLElement);
 
 onMounted(() => {
-  initPixi(renderTarget.value, [attachCamera, bunBunCircle]);
+  initPixi(renderTarget.value, [attachCamera, bunBunCircle, bunBunRandoDrag]);
 });
 </script>
 
