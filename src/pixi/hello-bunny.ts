@@ -1,6 +1,6 @@
 import { DropShadowFilter } from '@pixi/filter-drop-shadow';
 import type { Viewport } from 'pixi-viewport';
-import { Container, FederatedPointerEvent, Sprite, type Application, Texture, SCALE_MODES, Filter } from 'pixi.js';
+import { FederatedPointerEvent, Filter, SCALE_MODES, Sprite, Texture, type Application } from 'pixi.js';
 
 /**
  * Create a rotating bunny moving in a circle.
@@ -36,33 +36,33 @@ export function bunBunRandoDrag(app: Application) {
   // Scale mode for pixelation
   texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
 
-  for (let i = 0; i < 13; i++) {
+  for (let i = 0; i < 216; i++) {
     createBunny(
       Math.floor(Math.random() * app.screen.width),
       Math.floor(Math.random() * app.screen.height),
-      app.stage,
+      app,
       texture
     );
   }
 
   app.stage.eventMode = 'static';
   app.stage.hitArea = app.screen;
-  const upCallback = createOnDragEnd(app.stage);
+  const upCallback = createOnDragEnd(app);
   app.stage.on('pointerup', upCallback);
   app.stage.on('pointerupoutside', upCallback);
 }
 
-function createBunny(x: number, y: number, stage: Container, texture: Texture) {
+function createBunny(x: number, y: number, app: Application, texture: Texture) {
   const bunny = new Sprite(texture);
   bunny.eventMode = 'static';
   bunny.cursor = 'pointer';
   bunny.anchor.set(0.5);
   bunny.scale.set(2.5);
-  bunny.on('pointerdown', createOnDragStart(bunny, stage));
+  bunny.on('pointerdown', createOnDragStart(bunny, app));
   bunny.x = x;
   bunny.y = y;
 
-  stage.addChild(bunny);
+  app.stage.addChild(bunny);
 }
 
 let dragTarget: Sprite | undefined;
@@ -74,30 +74,30 @@ function onDragMove(event: FederatedPointerEvent) {
   }
 }
 
-function createOnDragStart(obj: Sprite, stage: Container) {
+function createOnDragStart(obj: Sprite, app: Application) {
   return () => {
     obj.alpha = 0.5;
     obj.filters = (obj.filters || []).concat(dragFilters);
     obj.cursor = 'grabbing';
     dragTarget = obj;
-    stage.on('pointermove', onDragMove);
-    const viewport = stage as Viewport; // weird but this is how it's set up in camera.ts. Probably kinda bad long term...
+    app.stage.on('pointermove', onDragMove);
+    const viewport = app.stage as Viewport; // weird but this is how it's set up in camera.ts. Probably kinda bad long term...
     viewport.plugins.pause('drag');
     const pan = 0.12;
     viewport.mouseEdges({
-      top: stage.height * pan,
-      bottom: stage.height * pan,
-      left: stage.width * pan,
-      right: stage.width * pan,
+      top: app.stage.height * pan,
+      bottom: app.stage.height * pan,
+      left: app.stage.width * pan,
+      right: app.stage.width * pan,
       allowButtons: true
     });
   };
 }
 
-function createOnDragEnd(stage: Container) {
+function createOnDragEnd(app: Application) {
   return () => {
     if (dragTarget) {
-      stage.off('pointermove', onDragMove);
+      app.stage.off('pointermove', onDragMove);
       dragTarget.alpha = 1;
       if (dragTarget.filters) {
         for (const filter of dragFilters) {
@@ -106,7 +106,7 @@ function createOnDragEnd(stage: Container) {
         dragTarget.filters.length = 0;
       }
       dragTarget = undefined;
-      const viewport = stage as Viewport;
+      const viewport = app.stage as Viewport;
       viewport.plugins.resume('drag');
       // viewport.plugins.remove('mouseEdges'); // this doesn't do what I think it does
       viewport.mouseEdges({

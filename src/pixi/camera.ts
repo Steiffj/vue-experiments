@@ -32,7 +32,7 @@ export function attachCamera(app: Application) {
       lineHeight: 20 // scaling factor for non-DOM_DELTA_PIXEL scrolling events (used for firefox mouse scrolling)
     })
     .decelerate({
-      friction: 0.92, // percent to decelerate after movement
+      friction: 0.93, // percent to decelerate after movement
       bounce: 0.8, // percent to decelerate when past boundaries (only applicable when viewport.bounce() is active)
       minSpeed: 0.01 // minimum velocity before stopping/reversing acceleration
     })
