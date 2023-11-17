@@ -4,7 +4,7 @@ import * as PIXI from 'pixi.js';
 export function initPixi(target: HTMLElement, renderFns: ((app: Application) => void)[]) {
   const app = new PIXI.Application<HTMLCanvasElement>({
     antialias: true,
-    background: '#1099bb',
+    background: '#2b2b2b',
     resizeTo: target
   });
 

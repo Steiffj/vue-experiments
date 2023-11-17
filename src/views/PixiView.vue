@@ -21,10 +21,10 @@ onMounted(() => {
   height: 100%;
 }
 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
   .render-target {
     min-height: 98vh;
   }
-}
+} */
 
 </style>
