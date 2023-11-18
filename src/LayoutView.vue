@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
+const hidden = ref(false);
 </script>
 
 <template>
@@ -7,8 +10,8 @@
             <h1>Bunny Visualization</h1>
         </div>
         <div class="ui details">Details!</div>
-        <div class="ui palette">Palette!</div>
-        <div class="controls">Controls!</div>
+        <div class="ui palette hide hide__left" :data-hidden="hidden">Palette!</div>
+        <div class="ui controls"><button style="width: 4rem" @click="hidden= !hidden">Controls!</button></div>
         <div class="viewport"></div>
     </div>
 </template>
@@ -32,18 +35,37 @@
 .palette {
     grid-area: palette;
     border: 2px solid orangered;
-    
 }
 
 .controls {
     grid-area: controls;
     border: 2px solid blueviolet;
     text-align: center;
+    justify-self: center;
 }
 
 .ui {
     pointer-events: initial;
     background-color: #1099bb44;
+}
+
+.hide {
+    transition:
+        opacity 350ms ease-in-out,
+        transform 350ms ease-in-out;
+}
+
+.hide[data-hidden=true] {
+    pointer-events: none;
+    opacity: 0;
+}
+
+.hide__left[data-hidden=true] {
+    transform: translateX(-105%);
+}
+
+.hide__right[data-hidden=true] {
+    transform: translateX(105%);
 }
 
 .ui-layout {
