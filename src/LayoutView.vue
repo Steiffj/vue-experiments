@@ -1,79 +1,71 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-
-// Lil close button wrapper
-// Resizable
-// Controls in the middle (still pos abs)
-function resizable(content: HTMLElement) {
-    const minWidthPx = 150;
-    let widthStart = 0;
-    let heightStart = 0;
-    let xStart = 0;
-    let yStart = 0;
-    let xMouseStart = 0;
-    let yMouseStart = 0;
-}
-
-const left = ref<HTMLElement>(null as unknown as HTMLElement);
-const right = ref<HTMLElement>(null as unknown as HTMLElement);
-onMounted(() => {
-
-})
 </script>
 
 <template>
     <div class="ui-layout">
-        <div ref="left" class="ui left-panel"></div>
-        <div class="resize left-resize"></div>
+        <div class="title">
+            <h1>Bunny Visualization</h1>
+        </div>
+        <div class="ui details">Details!</div>
+        <div class="ui palette">Stuff!</div>
+        <div class="controls">Controls!</div>
         <div class="viewport"></div>
-        <div ref="right" class="resize right-resize"></div>
-        <div class="ui right-panel"></div>
     </div>
 </template>
 
 <style scoped lang="scss">
 .ui-layout {
-    display: flex;
-    flex: 1;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 1fr 1.5fr;
+    grid-template-rows: auto 1fr 1fr auto;
+    grid-template-areas:
+        'title    title'
+        'details  viewport'
+        'palette  viewport'
+        'controls viewport';
+}
+
+@media (min-width: 1000px) {
+    .ui-layout {
+        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+            'palette title    details'
+            'palette viewport details'
+            'palette viewport details'
+            'palette controls details'
+        ;
+    }
+}
+
+.title {
+    grid-area: title;
+    border: 2px solid green;
+    text-align: center;
 }
 
 .viewport {
-    flex: 7;
+    grid-area: viewport;
+}
+
+.details {
+    grid-area: details;
+    border: 2px solid yellowgreen;
+}
+
+.palette {
+    grid-area: palette;
+    border: 2px solid orangered;
+}
+
+.controls {
+    grid-area: controls;
+    border: 2px solid blueviolet;
 }
 
 .ui {
     pointer-events: initial;
     background-color: #1099bb44;
-}
-
-.left-panel {
-    flex: 1.5;
-    // transform: translateX(-100%);
-}
-
-.right-panel {
-    flex: 1.5;
-}
-
-$resize-border-style: 1px dashed lightgray;
-
-.resize {
-    pointer-events: initial;
-    cursor: ew-resize;
-    width: 5px;
-    opacity: 0%;
-    transition: opacity 150ms;
-}
-
-.right-resize {
-    border-right: $resize-border-style;
-}
-
-.left-resize {
-    border-left: $resize-border-style;
-}
-
-.resize:hover {
-    opacity: 65%;
 }
 </style>

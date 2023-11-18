@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@phosphor-icons/web": "^2.0.3",
     "@pixi/filter-drop-shadow": "^5.2.0",
     "graphology": "^0.25.4",
     "graphology-layout": "^0.6.1",
