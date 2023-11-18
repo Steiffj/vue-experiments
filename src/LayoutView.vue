@@ -7,16 +7,48 @@
             <h1>Bunny Visualization</h1>
         </div>
         <div class="ui details">Details!</div>
-        <div class="ui palette">Stuff!</div>
+        <div class="ui palette">Palette!</div>
         <div class="controls">Controls!</div>
         <div class="viewport"></div>
     </div>
 </template>
 
 <style scoped lang="scss">
+.title {
+    grid-area: title;
+    border: 2px solid green;
+    text-align: center;
+}
+
+.viewport {
+    grid-area: viewport;
+}
+
+.details {
+    grid-area: details;
+    border: 2px solid yellowgreen;
+}
+
+.palette {
+    grid-area: palette;
+    border: 2px solid orangered;
+    
+}
+
+.controls {
+    grid-area: controls;
+    border: 2px solid blueviolet;
+    text-align: center;
+}
+
+.ui {
+    pointer-events: initial;
+    background-color: #1099bb44;
+}
+
 .ui-layout {
     display: grid;
-    gap: 0.5rem;
+    // gap: 0.5rem;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr 1fr auto;
     grid-template-areas:
@@ -46,38 +78,15 @@
             'palette title    details'
             'palette viewport details'
             'palette viewport details'
-            'palette controls details'
-        ;
+            'palette controls details';
     }
-}
 
-.title {
-    grid-area: title;
-    border: 2px solid green;
-    text-align: center;
-}
+    .title {
+        grid-column: 1 / -1;
+    }
 
-.viewport {
-    grid-area: viewport;
-}
-
-.details {
-    grid-area: details;
-    border: 2px solid yellowgreen;
-}
-
-.palette {
-    grid-area: palette;
-    border: 2px solid orangered;
-}
-
-.controls {
-    grid-area: controls;
-    border: 2px solid blueviolet;
-}
-
-.ui {
-    pointer-events: initial;
-    background-color: #1099bb44;
+    .controls {
+        grid-column: 1 / -1;
+    }
 }
 </style>
