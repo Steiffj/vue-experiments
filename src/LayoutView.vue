@@ -17,7 +17,7 @@
 .ui-layout {
     display: grid;
     gap: 0.5rem;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr 1fr auto;
     grid-template-areas:
         'title    title'
@@ -26,7 +26,19 @@
         'controls viewport';
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1200px) {
+    .ui-layout {
+        grid-template-columns: 1fr 1.5fr;
+    }
+}
+
+@media (min-width: 1600px) {
+    .ui-layout {
+        grid-template-columns: 1fr 2fr;
+    }
+}
+
+@media (min-width: 1850px) {
     .ui-layout {
         grid-template-columns: 1fr 3fr 1fr;
         grid-template-rows: auto 1fr auto;
