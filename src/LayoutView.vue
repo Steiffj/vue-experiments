@@ -11,7 +11,10 @@ const hidden = ref(false);
         </div>
         <div class="ui details">Details!</div>
         <div class="ui palette hide hide__left" :data-hidden="hidden">Palette!</div>
-        <div class="ui controls"><button style="width: 4rem" @click="hidden= !hidden">Controls!</button></div>
+        <div class="ui controls">
+            <button class="btn-control" @click="hidden = !hidden"><i class="ph-thin ph-eye"></i></button>
+            <button class="btn-control" @click="hidden = !hidden"><i class="ph-thin ph-eye"></i></button>
+        </div>
         <div class="viewport"></div>
     </div>
 </template>
@@ -39,14 +42,21 @@ const hidden = ref(false);
 
 .controls {
     grid-area: controls;
+    display: flex;
+    gap: 0.5rem;
     border: 2px solid blueviolet;
     text-align: center;
     justify-self: center;
+
+    padding-block: 1rem;
 }
 
-.ui {
+// .ui {
+//     background-color: #1099bb44;
+// }
+
+.ui * {
     pointer-events: initial;
-    background-color: #1099bb44;
 }
 
 .hide {
@@ -68,6 +78,21 @@ const hidden = ref(false);
     transform: translateX(105%);
 }
 
+button.btn-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 0;
+    border-radius: 50%;
+    background-color: #1099bb;
+    color: #fefefe;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 2rem;
+    box-shadow: -1px 16px 19px -7px rgba(0,0,0,0.55);
+}
+
 .ui-layout {
     display: grid;
     // gap: 0.5rem;
@@ -78,6 +103,12 @@ const hidden = ref(false);
         'details  viewport'
         'palette  viewport'
         'controls viewport';
+}
+
+
+.details {
+    grid-row: details / palette;
+    z-index: 1;
 }
 
 @media (min-width: 1200px) {

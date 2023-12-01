@@ -1,2 +1,2 @@
 @import './base.css';
-@import '@phosphor-icons/web/light';
+@import '../../node_modules/@phosphor-icons/web/src/thin/style.css';
