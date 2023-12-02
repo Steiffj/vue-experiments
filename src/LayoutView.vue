@@ -6,20 +6,50 @@ const hidden = ref(false);
 
 <template>
     <div class="ui-layout">
-        <div class="title">
+        <div class="ui title">
             <h1>Bunny Visualization</h1>
         </div>
-        <div class="ui details">Details!</div>
-        <div class="ui palette hide hide__left" :data-hidden="hidden">Palette!</div>
+        <div class="tabs-overlay"></div>
+        <div class="ui details"><h3>Details!</h3>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis illo illum, expedita aliquam numquam quod dolor voluptates quibusdam voluptate quam et tempore quos! Sapiente aperiam repellat unde, animi esse aliquid.
+                Cumque fuga, porro, labore cum, id error nihil quae laudantium corrupti facilis expedita tempore! Praesentium totam qui veritatis ratione voluptate, odit architecto cupiditate eligendi mollitia repellat! Saepe modi voluptatibus eum.
+                Modi libero consequuntur inventore totam consequatur pariatur laboriosam sequi amet labore id est perspiciatis, quae harum autem quod, molestias dolore mollitia qui aut, voluptatum dolores blanditiis laborum quaerat cum! Error.
+            </p>
+        </div>
+        <div class="ui palette hide hide__left" :data-hidden="hidden"><h3>Palette!</h3>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum cumque odio itaque quos doloribus, obcaecati expedita qui, possimus quidem magni unde architecto ipsam sapiente adipisci voluptate! Hic et omnis adipisci!
+            </p>
+        </div>
         <div class="ui controls">
-            <button class="btn-control" @click="hidden = !hidden"><i class="ph-thin ph-eye"></i></button>
-            <button class="btn-control" @click="hidden = !hidden"><i class="ph-thin ph-eye"></i></button>
+            <button class="btn-control" @click="hidden = !hidden">
+                <i class="ph-thin ph-eye"></i>
+                <div class="btn-label">Toggle</div>
+            </button>
+            <button class="btn-control" @click="hidden = !hidden">
+                <i class="ph-thin ph-eye"></i>
+                <div class="btn-label">Toggle</div>
+            </button>
+            <button class="btn-control" @click="hidden = !hidden">
+                <i class="ph-thin ph-eye"></i>
+                <div class="btn-label">Toggle</div>
+            </button>
+            <button class="btn-control" @click="hidden = !hidden">
+                <i class="ph-thin ph-x"></i>
+                <div class="btn-label">They all just toggle and this label is long!</div>
+            </button>
         </div>
         <div class="viewport"></div>
     </div>
 </template>
 
 <style scoped lang="scss">
+
+.tabs-overlay {
+    display: none;
+}
+
 .title {
     grid-area: title;
     border: 2px solid green;
@@ -31,13 +61,16 @@ const hidden = ref(false);
 }
 
 .details {
-    grid-area: details;
+    grid-area: ui;
     border: 2px solid yellowgreen;
+    background-color: #1099bb44;
+    text-align: right;
 }
 
 .palette {
-    grid-area: palette;
+    grid-area: ui;
     border: 2px solid orangered;
+    background-color: #bfc22044;
 }
 
 .controls {
@@ -48,12 +81,8 @@ const hidden = ref(false);
     text-align: center;
     justify-self: center;
 
-    padding-block: 1rem;
+    padding-block: 1.5rem;
 }
-
-// .ui {
-//     background-color: #1099bb44;
-// }
 
 .ui * {
     pointer-events: initial;
@@ -79,6 +108,7 @@ const hidden = ref(false);
 }
 
 button.btn-control {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -93,21 +123,40 @@ button.btn-control {
     box-shadow: -1px 16px 19px -7px rgba(0,0,0,0.55);
 }
 
+.btn-label {
+    font-size: 1rem;
+    position: absolute;
+    overflow-x: visible;
+    width: 40em;
+    top: 2.5rem;
+    transform: scale(0.75);
+    opacity: 0;
+    transition:
+        opacity 80ms ease-in-out,
+        transform 80ms ease-in-out;
+}
+
+.btn-control:hover {
+    .btn-label {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+}
+
 .ui-layout {
     display: grid;
-    // gap: 0.5rem;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr 1fr auto;
     grid-template-areas:
-        'title    title'
-        'details  viewport'
-        'palette  viewport'
-        'controls viewport';
+        'ui title'
+        'ui viewport'
+        'ui viewport'
+        'ui controls';
 }
 
 
 .details {
-    grid-row: details / palette;
+    grid-area: ui;
     z-index: 1;
 }
 
@@ -128,18 +177,18 @@ button.btn-control {
         grid-template-columns: 1fr 3fr 1fr;
         grid-template-rows: auto 1fr auto;
         grid-template-areas:
-            'palette title    details'
-            'palette viewport details'
-            'palette viewport details'
-            'palette controls details';
+            'ui-left title    ui-right'
+            'ui-left viewport ui-right'
+            'ui-left viewport ui-right'
+            'ui-left controls ui-right';
     }
 
-    .title {
-        grid-column: 1 / -1;
+    .details {
+        grid-area: ui-right;
     }
 
-    .controls {
-        grid-column: 1 / -1;
+    .palette {
+        grid-area: ui-left;
     }
 }
 </style>
