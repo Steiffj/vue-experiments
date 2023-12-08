@@ -23,22 +23,27 @@ const hidden = ref(false);
             </p>
         </div>
         <div class="ui controls">
-            <button class="btn-control" @click="hidden = !hidden">
-                <i class="ph-thin ph-eye"></i>
-                <div class="btn-label">Toggle</div>
-            </button>
-            <button class="btn-control" @click="hidden = !hidden">
-                <i class="ph-thin ph-eye"></i>
-                <div class="btn-label">Toggle</div>
-            </button>
-            <button class="btn-control" @click="hidden = !hidden">
-                <i class="ph-thin ph-eye"></i>
-                <div class="btn-label">Toggle</div>
-            </button>
-            <button class="btn-control" @click="hidden = !hidden">
-                <i class="ph-thin ph-x"></i>
-                <div class="btn-label">They all just toggle and this label is long!</div>
-            </button>
+            <div class="search">
+                <input type="text" name="search" id="search">
+            </div>
+            <div class="control-buttons">
+                <button class="btn-control" @click="hidden = !hidden">
+                    <i class="ph-thin ph-eye"></i>
+                    <div class="btn-label">Toggle</div>
+                </button>
+                <button class="btn-control" @click="hidden = !hidden">
+                    <i class="ph-thin ph-eye"></i>
+                    <div class="btn-label">Toggle</div>
+                </button>
+                <button class="btn-control" @click="hidden = !hidden">
+                    <i class="ph-thin ph-eye"></i>
+                    <div class="btn-label">Toggle</div>
+                </button>
+                <button class="btn-control" @click="hidden = !hidden">
+                    <i class="ph-thin ph-x"></i>
+                    <div class="btn-label">They all just toggle and this label is long!</div>
+                </button>
+            </div>
         </div>
         <div class="viewport"></div>
     </div>
@@ -60,6 +65,10 @@ const hidden = ref(false);
     grid-area: viewport;
 }
 
+.palette, .details {
+    align-self: center;
+}
+
 .details {
     grid-area: ui;
     border: 2px solid yellowgreen;
@@ -75,13 +84,15 @@ const hidden = ref(false);
 
 .controls {
     grid-area: controls;
-    display: flex;
-    gap: 0.5rem;
     border: 2px solid blueviolet;
+    padding-block: 1.5rem;
     text-align: center;
     justify-self: center;
+}
 
-    padding-block: 1.5rem;
+.control-buttons {
+    display: flex;
+    gap: 0.5rem;
 }
 
 .ui * {
