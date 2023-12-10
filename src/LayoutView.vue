@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { provide } from 'vue';
-import { UiState } from './layout/UiState';
-import { uiStateKey } from './layout/UiStateKey';
-import UiOverlay from './layout/UiOverlay.vue';
-import UiTitle from './layout/UiTitle.vue';
+import UiControls from './layout/UiControls.vue';
 import UiDetails from './layout/UiDetails.vue';
 import UiOptions from './layout/UiOptions.vue';
-import UiControls from './layout/UiControls.vue';
+import UiOverlay from './layout/UiOverlay.vue';
+import { UiState } from './layout/UiState';
+import { uiStateKey } from './layout/UiStateKey';
+import UiTitle from './layout/UiTitle.vue';
 
-provide(uiStateKey, new UiState());
+const ui = new UiState();
+provide(uiStateKey, ui);
 </script>
 
 <template>
@@ -23,7 +24,7 @@ provide(uiStateKey, new UiState());
             <UiOptions />
         </template>
         <template #controls>
-            <UiControls />
+            <UiControls @hideToggle="() => ui.toggleHidden('palette')" />
         </template>
     </UiOverlay>
 </template>

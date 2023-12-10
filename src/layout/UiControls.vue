@@ -1,17 +1,10 @@
 <script setup lang="ts">
-import { inject } from 'vue';
-import { UiState } from './UiState';
-import { uiStateKey } from './UiStateKey';
-
-// const ui = inject(uiStateKey, () => new UiState(), true);
-const ui = inject(uiStateKey) as UiState;
 const emit = defineEmits<{
-    (e: 'hideToggle', hidden: boolean): void
+    (e: 'hideToggle'): void
 }>();
 
 function toggle() {
-    ui.hidden.value = !ui.hidden.value;
-    emit('hideToggle', ui.hidden.value);
+    emit('hideToggle');
 }
 </script>
 

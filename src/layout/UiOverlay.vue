@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 import { uiStateKey } from './UiStateKey';
-import type { UiState } from './UiState';
+import { UiState } from './UiState';
 
-// const ui = inject(uiStateKey, () => new UiState(), true);
-const ui = inject(uiStateKey) as UiState;
+const ui = inject(uiStateKey, () => new UiState(), true);
 </script>
 
 <template>
@@ -15,7 +14,7 @@ const ui = inject(uiStateKey) as UiState;
         <div class="ui details">
             <slot name="details"></slot>
         </div>
-        <div class="ui palette hide hide__left" :data-hidden="ui.hidden.value">
+        <div class="ui palette hide hide__left" :data-hidden="ui.isHidden('palette').value">
             <slot name="options"></slot>
         </div>
         <div class="ui controls">
