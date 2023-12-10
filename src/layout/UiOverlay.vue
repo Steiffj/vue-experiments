@@ -27,8 +27,6 @@ const ui = inject(uiStateKey, () => new UiState(), true);
 <style>
 .title {
     grid-area: title;
-    border: 2px solid green;
-    text-align: center;
 }
 
 .viewport {
@@ -42,27 +40,23 @@ const ui = inject(uiStateKey, () => new UiState(), true);
 
 .details {
     grid-area: ui;
-    border: 2px solid yellowgreen;
-    background-color: #1099bb44;
-    text-align: right;
 }
 
 .palette {
     grid-area: ui;
-    border: 2px solid orangered;
-    background-color: #bfc22044;
 }
 
 .controls {
     grid-area: controls;
-    border: 2px solid blueviolet;
-    padding-block: 1.5rem;
-    text-align: center;
     justify-self: center;
 }
 
 .ui * {
     pointer-events: initial;
+}
+
+.ui:hover {
+    z-index: 9999;
 }
 
 .hide {

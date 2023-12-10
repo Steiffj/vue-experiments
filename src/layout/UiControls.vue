@@ -9,30 +9,38 @@ function toggle() {
 </script>
 
 <template>
-    <div class="search">
-        <input type="text" name="search" id="search">
-    </div>
-    <div class="control-buttons">
-        <button class="btn-control" @click="toggle">
-            <i class="ph-thin ph-eye"></i>
-            <div class="btn-label">Toggle</div>
-        </button>
-        <button class="btn-control" @click="toggle">
-            <i class="ph-thin ph-eye"></i>
-            <div class="btn-label">Toggle</div>
-        </button>
-        <button class="btn-control" @click="toggle">
-            <i class="ph-thin ph-eye"></i>
-            <div class="btn-label">Toggle</div>
-        </button>
-        <button class="btn-control" @click="toggle">
-            <i class="ph-thin ph-x"></i>
-            <div class="btn-label">They all just toggle and this label is long!</div>
-        </button>
+    <div class="ui-controls">
+        <div class="search">
+            <input type="text" name="search" id="search">
+        </div>
+        <div class="control-buttons">
+            <button class="btn-control" @click="toggle">
+                <i class="ph-thin ph-eye"></i>
+                <div class="btn-label">Toggle</div>
+            </button>
+            <button class="btn-control" @click="toggle">
+                <i class="ph-thin ph-eye"></i>
+                <div class="btn-label">Toggle</div>
+            </button>
+            <button class="btn-control" @click="toggle">
+                <i class="ph-thin ph-eye"></i>
+                <div class="btn-label">Toggle</div>
+            </button>
+            <button class="btn-control" @click="toggle">
+                <i class="ph-thin ph-x"></i>
+                <div class="btn-label">They all just toggle and this label is long!</div>
+            </button>
+        </div>
     </div>
 </template>
 
-<style>
+<style scoped>
+.ui-controls {
+    border: 2px solid blueviolet;
+    padding-block: 1.5rem;
+    text-align: center;
+}
+
 .search {
     margin-block: 1rem;
 }
@@ -77,5 +85,4 @@ button.btn-control {
         opacity: 0.9;
     }
 }
-
 </style>
