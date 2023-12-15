@@ -11,10 +11,10 @@ const ui = inject(uiStateKey, () => new UiState(), true);
         <div class="ui title">
             <slot name="title"></slot>
         </div>
-        <div class="ui details">
+        <div class="ui scrollable details">
             <slot name="details"></slot>
         </div>
-        <div class="ui palette hide hide__left" :data-hidden="ui.isHidden('palette').value">
+        <div class="ui scrollable palette hide hide__left" :data-hidden="ui.isHidden('palette').value">
             <slot name="options"></slot>
         </div>
         <div class="ui controls">
@@ -33,9 +33,30 @@ const ui = inject(uiStateKey, () => new UiState(), true);
     grid-area: viewport;
 }
 
-.palette,
-.details {
+.scrollable {
+    --scroll-fg: #444444F0;
+    --scroll-bg: #00000000;
+    overflow: auto;
     align-self: center;
+    /* max-height: 100cqb; */
+    max-height: 100%;
+    pointer-events: initial;
+
+    scrollbar-color: var(--scroll-fg) var(--scroll-bg);
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 13px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: var(--scroll-bg);
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: var(--scroll-fg);
+    /* border-radius: 100vh; */
+    box-shadow: 0px 4px 12px -2px rgba(0,0,0,0.7);
 }
 
 .details {
@@ -79,6 +100,7 @@ const ui = inject(uiStateKey, () => new UiState(), true);
 }
 
 .ui-layout {
+    /* --one-fr: minmax(0, 1fr); */
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr 1fr auto;
