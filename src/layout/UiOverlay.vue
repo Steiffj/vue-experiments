@@ -114,15 +114,14 @@ function onDrag(event: MouseEvent) {
 
 .scrollable::-webkit-scrollbar-thumb {
     background: var(--scroll-fg);
-    box-shadow: 0px 4px 12px -2px rgba(0, 0, 0, 0.7);
 }
 
 .details {
-    grid-area: ui;
+    grid-area: ui-l;
 }
 
 .palette {
-    grid-area: ui;
+    grid-area: ui-r;
 }
 
 .controls {
@@ -164,17 +163,12 @@ function onDrag(event: MouseEvent) {
 .ui-layout {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: auto 1fr 1fr auto;
+    grid-template-rows: auto;
     grid-template-areas:
-        'ui title'
-        'ui viewport'
-        'ui viewport'
-        'ui controls';
-}
-
-.details {
-    grid-area: ui;
-    z-index: 1;
+        'ui-r title'
+        'ui-r viewport'
+        'ui-l viewport'
+        'ui-l controls';
 }
 
 @media (min-width: 1200px) {
@@ -198,18 +192,18 @@ function onDrag(event: MouseEvent) {
         grid-template-columns: 1fr 3fr 1fr;
         grid-template-rows: auto 1fr auto;
         grid-template-areas:
-            'ui-left title    ui-right'
-            'ui-left viewport ui-right'
-            'ui-left viewport ui-right'
-            'ui-left controls ui-right';
+            'ui-l title    ui-r'
+            'ui-l viewport ui-r'
+            'ui-l viewport ui-r'
+            'ui-l controls ui-r';
     }
 
     .details {
-        grid-area: ui-right;
+        grid-area: ui-r;
     }
 
     .palette {
-        grid-area: ui-left;
+        grid-area: ui-l;
     }
 }
 </style>
