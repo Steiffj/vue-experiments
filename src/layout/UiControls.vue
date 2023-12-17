@@ -37,12 +37,12 @@ function toggle() {
 <style scoped>
 .ui-controls {
     border: 2px solid blueviolet;
-    padding-block: 1.5rem;
+    padding-block-end: 1.5rem;
     text-align: center;
 }
 
 .search {
-    margin-block: 1rem;
+    margin-block-end: 1rem;
 }
 
 .control-buttons {
