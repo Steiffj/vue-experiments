@@ -22,6 +22,7 @@ function startDrag(pos: 'left' | 'right') {
     setCursor('ew-resize');
     if (layout.value) {
         layout.value.style.pointerEvents = 'initial';
+        layout.value.style.userSelect = 'none';
     }
 }
 function endDrag() {
@@ -29,6 +30,7 @@ function endDrag() {
     setCursor('auto');
     if (layout.value) {
         layout.value.style.pointerEvents = 'none';
+        layout.value.style.userSelect = 'auto';
     }
 }
 function onDrag(event: MouseEvent) {
@@ -69,6 +71,7 @@ function onDrag(event: MouseEvent) {
 
 .resize {
     position: absolute;
+    z-index: 1;
     top: 0;
     pointer-events: initial;
     cursor: ew-resize;
