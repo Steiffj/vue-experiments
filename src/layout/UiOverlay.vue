@@ -38,9 +38,7 @@ function onDrag(event: MouseEvent) {
 
     const leftColWidth = dragActive === 'left' ? +event.clientX : +left.value.offsetWidth;
     const rightColWidth = dragActive === 'right' ? +layout.value.offsetWidth - event.clientX : +right.value.offsetWidth;
-
-    const dragWidth = +resizeLeft.value.offsetWidth;
-    const gridTemplateColumns = `${leftColWidth}px ${dragWidth}px 1fr ${dragWidth}px ${rightColWidth}px`;
+    const gridTemplateColumns = `${leftColWidth}px 1fr ${rightColWidth}px`;
     layout.value.style.gridTemplateColumns = gridTemplateColumns;
 }
 </script>
@@ -51,16 +49,16 @@ function onDrag(event: MouseEvent) {
         </div>
         <div ref="right" class="ui scrollable details">
             <slot name="details"></slot>
+            <div ref="resizeRight" class="resize resize__right" @mousedown="startDrag('right')"></div>
         </div>
         <div ref="left" class="ui scrollable palette hide hide__left" :data-hidden="ui.isHidden('palette').value">
             <slot name="options"></slot>
+            <div ref="resizeLeft" class="resize resize__left" @mousedown="startDrag('left')"></div>
         </div>
         <div class="ui controls">
             <slot name="controls"></slot>
         </div>
         <div class="viewport"></div>
-        <div ref="resizeLeft" class="resize resize__left" @mousedown="startDrag('left')"></div>
-        <div ref="resizeRight" class="resize resize__right" @mousedown="startDrag('right')"></div>
     </div>
 </template>
 
@@ -70,19 +68,22 @@ function onDrag(event: MouseEvent) {
 }
 
 .resize {
+    position: absolute;
+    top: 0;
     pointer-events: initial;
     cursor: ew-resize;
+    height: 100%;
     width: 5px;
     background-color: #dda0dd;
 }
 
 .resize__left {
-    grid-area: rz-l;
+    right: 0;
 }
 
 .resize__right {
     visibility: hidden;
-    grid-area: rz-r;
+    left: 0;
 }
 
 .viewport {
@@ -94,7 +95,6 @@ function onDrag(event: MouseEvent) {
     --scroll-bg: #00000000;
     overflow: auto;
     align-self: center;
-    /* max-height: 100cqb; */
     max-height: 100%;
     pointer-events: initial;
 
@@ -125,6 +125,10 @@ function onDrag(event: MouseEvent) {
 .controls {
     grid-area: controls;
     justify-self: center;
+}
+
+.ui {
+    position: relative;
 }
 
 .ui * {
@@ -159,10 +163,10 @@ function onDrag(event: MouseEvent) {
     grid-template-columns: 1fr auto 1fr;
     grid-template-rows: auto 1fr 1fr auto;
     grid-template-areas:
-        'ui rz-l title'
-        'ui rz-l viewport'
-        'ui rz-l viewport'
-        'ui rz-l controls';
+        'ui title'
+        'ui viewport'
+        'ui viewport'
+        'ui controls';
 }
 
 .details {
@@ -185,17 +189,16 @@ function onDrag(event: MouseEvent) {
 @media (min-width: 1850px) {
     .resize__right {
         visibility: visible;
-        grid-area: rz-r;
     }
 
     .ui-layout {
-        grid-template-columns: 1fr auto 3fr auto 1fr;
+        grid-template-columns: 1fr 3fr 1fr;
         grid-template-rows: auto 1fr auto;
         grid-template-areas:
-            'ui-left rz-l title    rz-r ui-right'
-            'ui-left rz-l viewport rz-r ui-right'
-            'ui-left rz-l viewport rz-r ui-right'
-            'ui-left rz-l controls rz-r ui-right';
+            'ui-left title    ui-right'
+            'ui-left viewport ui-right'
+            'ui-left viewport ui-right'
+            'ui-left controls ui-right';
     }
 
     .details {
